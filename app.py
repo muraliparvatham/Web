@@ -11,9 +11,8 @@ import pandas as pd
 def load_json(file_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
-            # Read the entire file as lines
+            # Read the file as lines
             lines = file.readlines()
-            # Join lines into a single JSON array-like string
             json_str = "[" + ",".join(lines) + "]"
             # Load JSON from the string
             data = json.loads(json_str)
@@ -34,7 +33,7 @@ data = load_json(file_path)
 
 
 
-# Function to preprocess conversations and extract text
+# Function to preprocess conversations and take text
 def preprocess_conversations(data):
     texts = []
     for session in data:
@@ -49,12 +48,12 @@ def preprocess_conversations(data):
 # Preprocess data and extract text
 texts = preprocess_conversations(data)
 
-# TF-IDF Vectorization
+# Vectorization
 vectorizer = TfidfVectorizer(stop_words='english')
 X = vectorizer.fit_transform(texts)
 
 # K-means clustering
-k = 3  # Number of clusters (adjust as needed)
+k = 3  # Number of clusters 
 kmeans = KMeans(n_clusters=k, random_state=42)
 clusters = kmeans.fit_predict(X)
 
